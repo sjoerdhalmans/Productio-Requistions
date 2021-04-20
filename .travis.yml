@@ -43,9 +43,10 @@ after_failure:
   - ./send.sh failure $WEBHOOK_URL
 
 before_deploy:
-    - docker buildx version
-    - docker login -u "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD" docker.io ;
-    - docker tag requisitions $DOCKER_USERNAME/requisitions:latest
+    - docker images
+    # - docker buildx version
+    # - docker login -u "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD" docker.io ;
+    # - docker tag requisitions $DOCKER_USERNAME/requisitions:latest
 
 deploy:
     provider: script
