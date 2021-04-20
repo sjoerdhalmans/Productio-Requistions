@@ -27,7 +27,7 @@ before_install:
 
 after_success:
     - docker buildx create --use
-    - docker buildx build --platform linux/arm/v7,linux/arm64/v8,linux/amd64 -t requisitions .
+    - docker buildx build --platform linux/arm/v7 -t requisitions .
     - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
     - chmod +x send.sh
     - ./send.sh success $WEBHOOK_URL
