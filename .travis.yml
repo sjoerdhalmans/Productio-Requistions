@@ -12,7 +12,7 @@ cache:
         - "node_modules"
 
 after_success:
-    - docker build -t nestjs-products-api .
+    - docker build -t requisitions .
     - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
     - chmod +x send.sh
     - ./send.sh success $WEBHOOK_URL
@@ -24,11 +24,16 @@ after_failure:
 
 before_deploy:
     - docker login -u "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD" docker.io ;
-    - docker tag nestjs-products-api $DOCKER_USERNAME/nestjs-products-api:latest
+    - docker tag requisitions $DOCKER_USERNAME/requisitions:latest
 
 deploy:
     provider: script
-    script: docker push $DOCKER_USERNAME/nestjs-products-api:latest ;
+    script: docker push $DOCKER_USERNAME/requisitions:latest ;
+
+on:
+   tags: true
+   all_branches: true
 
 notifications:
     email: false
+
