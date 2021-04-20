@@ -5,6 +5,7 @@ arch:
   - arm64  # please note arm64-graviton2 requires explicit virt: [lxd|vm] tag so it's recommended for jobs.include, see below
   - ppc64le
   - s390x
+  - armv7
 
 services:
     - 'docker'
@@ -18,7 +19,7 @@ cache:
         - "node_modules"
 
 after_success:
-    - docker buildx --platform linux/arm/v7 -t requisitions .
+    - docker build -t requisitions .
     - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
     - chmod +x send.sh
     - ./send.sh success $WEBHOOK_URL
