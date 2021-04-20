@@ -26,6 +26,7 @@ before_install:
     - chmod a+x ~/.docker/cli-plugins/docker-buildx
 
 after_success:
+    - docker login -u "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD"
     - docker buildx create --use
     - docker buildx build --platform linux/arm/v7 -t requisitions .
     - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
