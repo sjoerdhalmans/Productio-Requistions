@@ -30,10 +30,6 @@ deploy:
     provider: script
     script: docker push $DOCKER_USERNAME/requisitions:latest ;
 
-on:
-   tags: true
-   all_branches: true
-
 notifications:
     email: false
 
