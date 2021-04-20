@@ -1,12 +1,5 @@
 language: node_js
 
-arch:
-  - amd64
-  - arm64  # please note arm64-graviton2 requires explicit virt: [lxd|vm] tag so it's recommended for jobs.include, see below
-  - ppc64le
-  - s390x
-  - armv7
-
 services:
     - 'docker'
 
@@ -18,8 +11,13 @@ cache:
     directories:
         - "node_modules"
 
+before_install:
+    - mkdir -vp ~/.docker/cli-plugins/
+    - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+    - chmod a+x ~/.docker/cli-plugins/docker-buildx
+
 after_success:
-    - docker build -t requisitions .
+    - docker buildx build --platform linux/arm/v7 -t requisitions .
     - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
     - chmod +x send.sh
     - ./send.sh success $WEBHOOK_URL
