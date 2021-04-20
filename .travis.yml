@@ -45,9 +45,9 @@ after_failure:
 
 before_deploy:
     - docker images
-    # - docker buildx version
-    # - docker login -u "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD" docker.io ;
-    # - docker tag requisitions $DOCKER_USERNAME/requisitions:latest
+    - docker buildx version
+    - docker login -u "$DOCKER_USERNAME" --password "$DOCKER_PASSWORD" docker.io ;
+    - docker tag requisitions $DOCKER_USERNAME/requisitions:latest
 
 deploy:
     provider: script
