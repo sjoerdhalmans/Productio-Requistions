@@ -10,4 +10,4 @@ FROM node:10-alpine
 WORKDIR /app
 COPY --from=requisitions /app ./
 CMD ["npm", "run", "start:prod"]
-EXPOSE 3000
+EXPOSE 3500
