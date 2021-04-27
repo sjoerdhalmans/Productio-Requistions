@@ -2,7 +2,7 @@ import { IsNumber, IsString } from 'class-validator';
 import { Entity } from 'typeorm';
 
 @Entity({name: 'inventory'})
-export class InventoryItem {
+export class createInventoryItem {
   @IsString()
   type: string;
 

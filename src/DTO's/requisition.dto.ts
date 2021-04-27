@@ -1,15 +1,12 @@
 import { Entity, Column, PrimaryGeneratedColumn, Long } from 'typeorm';
 import { IsArray, IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
 
-export class Order {
-    @IsNumber()
-    id: number;
-
-    @IsDate()
-    created: Date;
-
+export class createRequisition {
     @IsString()
-    OrderedItem: string;
+    OrderedItemType: string;
+
+    @IsNumber()
+    OrderedItemId: Number;
 
     @IsNumber()
     Quantity: Long;

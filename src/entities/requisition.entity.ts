@@ -2,6 +2,15 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Requisition {
+  constructor(created, orderedItemType, orderedItemId, quantity, requester, department) {
+    this.created = created
+    this.orderItemType = orderedItemType
+    this.orderedItemId = orderedItemId
+    this.quantity = quantity
+    this.requester = requester
+    this.department = department
+  }
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -9,14 +18,17 @@ export class Requisition {
   created: Date;
 
   @Column()
-  OrderedItem: string;
+  orderItemType: String;
 
   @Column()
-  Quantity: Number;
+  orderedItemId: Number;
 
   @Column()
-  Requester: string;
+  quantity: Number;
 
   @Column()
-  Department: string
+  requester: string;
+
+  @Column()
+  department: string
 }

@@ -1,5 +1,6 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Body, Controller, Get, Logger } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices'
+import { createRequisition } from "src/DTO's/requisition.dto";
 import { RequisitionService } from './requisition.service';
 
 @Controller()
@@ -9,13 +10,13 @@ export class RequisitionController {
     private logger = new Logger('OrderController');
     //tes
     @MessagePattern('createRequisition')
-    async createRequisition() {
-        // to be implemented
+    async createRequisition(@Body() requisitionDto: createRequisition) {
+        this.requisitionService.createRequisition(requisitionDto);
     }
 
     @MessagePattern('deleteRequisition')
-    async deleteRequisition() {
-        // to be implemented
+    async deleteRequisition(@Body() requisitionId: Number) {
+        this.requisitionService.deleteRequisition(requisitionId);
     }
 
     @Get('/getall')
