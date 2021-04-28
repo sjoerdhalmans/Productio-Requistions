@@ -1,5 +1,6 @@
-import { Controller, Logger } from '@nestjs/common';
+import { Body, Controller, Logger } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices'
+import { adjustInventoryItem } from "src/DTO's/inventoryItem.dto";
 import { InventoryService } from './inventory.service';
 
 @Controller()
@@ -8,8 +9,13 @@ export class InventoryController {
 
   private logger = new Logger('InventoryController');
 
-  @MessagePattern('test_inv')
-  async createInventoryItem() {
-      // to be implemented
-    }
+  @MessagePattern('addInvItem')
+  async addInventoryItem(@Body() inventoryItemDto: adjustInventoryItem) {
+    this.inventoryService.addInventoryItem(inventoryItemDto)
+  }
+
+  @MessagePattern('removeInvItem')
+  async removeInventoryItem(@Body() inventoryItemDto: adjustInventoryItem) {
+    this.inventoryService.removeInventoryItem(inventoryItemDto);
+  }
 }

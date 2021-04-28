@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { adjustInventoryItem } from "src/DTO's/inventoryItem.dto";
 import { InventoryItem } from "src/entities/inventoryItem.entity";
 import { Repository } from "typeorm";
 
@@ -11,7 +12,44 @@ export class InventoryService {
         private inventoryRepository: Repository<InventoryItem>,
     ) { }
 
-    public async test() {
-        
+    public async addInventoryItem(inventoryItemDto: adjustInventoryItem) {
+        const items = await this.inventoryRepository.find()
+
+        if (items.length > 0 && await this.findItemById(inventoryItemDto, items)) {
+            let item = await this.findItemById(inventoryItemDto, items)
+
+            item.quantity = item.quantity + inventoryItemDto.quantity;
+            this.inventoryRepository.save(item);
+        }
+        else {
+            this.saveInventoryItemDto(inventoryItemDto);
+        }
+    }
+
+    public async removeInventoryItem(inventoryItemDto: adjustInventoryItem) {
+        const items = await this.inventoryRepository.find()
+
+        let item = await this.findItemById(inventoryItemDto, items)
+
+        item.quantity = item.quantity - inventoryItemDto.quantity;
+        this.inventoryRepository.save(item);
+    }
+
+    private async findItemById(inventoryItemDto: adjustInventoryItem, items: InventoryItem[]) {
+        let foundRecord;
+
+        await items.forEach(item => {
+            if (item.itemId == inventoryItemDto.itemId) {
+                foundRecord = item;
+            }
+        });
+
+        return foundRecord
+    }
+
+    private saveInventoryItemDto(inventoryItemDto: adjustInventoryItem) {
+        let item = new InventoryItem(inventoryItemDto.type, inventoryItemDto.itemId, inventoryItemDto.quantity);
+
+        this.inventoryRepository.save(item);
     }
 }
