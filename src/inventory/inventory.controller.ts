@@ -1,4 +1,4 @@
-import { Body, Controller, Logger } from '@nestjs/common';
+import { Body, Controller, Get, Logger } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices'
 import { adjustInventoryItem } from "src/DTO's/inventoryItem.dto";
 import { InventoryService } from './inventory.service';
@@ -17,5 +17,15 @@ export class InventoryController {
   @MessagePattern('removeInvItem')
   async removeInventoryItem(@Body() inventoryItemDto: adjustInventoryItem) {
     this.inventoryService.removeInventoryItem(inventoryItemDto);
+  }
+
+  @Get('/getStoredMaterials')
+  async getMaterials() {
+    return this.inventoryService.getMaterials();
+  }
+
+  @Get('/getAllStoredItems')
+  async getAllItems() {
+    return this.inventoryService.getAllItems();
   }
 }

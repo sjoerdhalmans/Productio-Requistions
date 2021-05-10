@@ -29,4 +29,10 @@ export class RequisitionService {
     public async deleteRequisition(requisitionId) {
         this.requisitionRepository.delete(requisitionId)
     }
+
+    public async getAllRequisitions() {
+        const requisitions = await this.requisitionRepository.find();
+
+        return requisitions;
+    }
 }

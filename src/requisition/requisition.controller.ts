@@ -19,9 +19,9 @@ export class RequisitionController {
         this.requisitionService.deleteRequisition(requisitionId);
     }
 
-    @Get('/getall')
+    @Get('/getAllRequisitions')
     async getAll() {
-        // to be implemented
+        return this.requisitionService.getAllRequisitions();
     }
 }
 

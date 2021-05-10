@@ -52,4 +52,16 @@ export class InventoryService {
 
         this.inventoryRepository.save(item);
     }
+
+    public async getMaterials() {
+        const storedMaterials = await this.inventoryRepository.find({ type: 'Material' });
+
+        return storedMaterials;
+    }
+
+    public async getAllItems() {
+        const storedItems = await this.inventoryRepository.find();
+
+        return storedItems;
+    }
 }
