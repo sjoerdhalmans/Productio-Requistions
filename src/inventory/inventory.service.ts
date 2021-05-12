@@ -18,7 +18,10 @@ export class InventoryService {
         if (items.length > 0 && await this.findItemById(inventoryItemDto, items)) {
             let item = await this.findItemById(inventoryItemDto, items)
 
-            item.quantity = item.quantity + inventoryItemDto.quantity;
+            console.log(typeof parseInt(inventoryItemDto.quantity.toString()))
+
+            item.quantity = parseInt(item.quantity) + parseInt(inventoryItemDto.quantity.toString());
+            
             this.inventoryRepository.save(item);
         }
         else {
@@ -31,7 +34,7 @@ export class InventoryService {
 
         let item = await this.findItemById(inventoryItemDto, items)
 
-        item.quantity = item.quantity - inventoryItemDto.quantity;
+        item.quantity = parseInt(item.quantity) - parseInt(inventoryItemDto.quantity.toString());
         this.inventoryRepository.save(item);
     }
 
