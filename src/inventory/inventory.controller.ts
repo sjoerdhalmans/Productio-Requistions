@@ -11,6 +11,7 @@ export class InventoryController {
 
   @MessagePattern('addInvItem')
   async addInventoryItem(@Body() inventoryItemDto: adjustInventoryItem) {
+    console.log(inventoryItemDto);
     this.inventoryService.addInventoryItem(inventoryItemDto)
   }
 

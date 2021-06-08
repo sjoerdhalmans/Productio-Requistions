@@ -42,7 +42,7 @@ export class InventoryService {
         let foundRecord;
 
         await items.forEach(item => {
-            if (item.itemId == inventoryItemDto.itemId) {
+            if (item.itemId == inventoryItemDto.itemId && inventoryItemDto.type == item.type) {
                 foundRecord = item;
             }
         });
